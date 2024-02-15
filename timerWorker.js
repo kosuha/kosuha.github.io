@@ -20,7 +20,7 @@ self.onmessage = (e) => {
           startTime = performance.now() - savedTime;
           interval = setInterval(() => {
             elapsedTime = performance.now() - startTime;
-            postMessage({ elapsed });
+            postMessage({ elapsed: elapsedTime });
           }, 1000 / 60);
         }
       } else {
