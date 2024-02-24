@@ -1,6 +1,6 @@
 {
-  "short_name": "메이플 타이머",
-  "name": "메이플랜드 사냥 타이머",
+  "short_name": "Maple Timer",
+  "name": "mapletimer",
   "icons": [
     {
       "src": "favicon.ico",
