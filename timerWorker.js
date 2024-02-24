@@ -1,4 +1,3 @@
-// timerWorker.js
 let interval;
 let elapsedTime = 0;
 let isActive = false;
@@ -15,22 +14,21 @@ self.onmessage = (e) => {
       isActive = true;
       clockMode = data.clockMode;
       if (clockMode) {
-        // For stopwatch mode
+        // 스톱워치 모드
         if (!interval) {
-          startTime = performance.now() - savedTime;
+          startTime = new Date().getTime() - savedTime;
           interval = setInterval(() => {
-            elapsedTime = performance.now() - startTime;
+            elapsedTime = new Date().getTime() - startTime;
             postMessage({ elapsed: elapsedTime });
           }, 1000 / 60);
         }
       } else {
         // 타이머 모드
         if (!interval) {
-          // 처음 시작하거나 재시작하는 경우, 남은 시간을 설정
           remainingTime = data.startTime ? data.startTime : remainingTime;
           if (!remainingTime) break;
           interval = setInterval(() => {
-            remainingTime -= 1000 / 60; // 매 틱마다 감소
+            remainingTime -= 1000 / 60;
             if (remainingTime <= 0) {
               remainingTime = 0;
               postMessage({ over: true });
@@ -46,12 +44,6 @@ self.onmessage = (e) => {
       clearInterval(interval);
       interval = null;
       isActive = false;
-      // if (clockMode) {
-      //   // Save elapsed time for stopwatch
-      //   savedTime = performance.now() - startTime;
-      // } else {
-      //   // Save remaining time for timer
-      // }
       savedTime = elapsedTime;
       break;
     case 'RESET':
